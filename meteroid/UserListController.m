@@ -198,12 +198,10 @@
                 break;
             }
         }
-
+        
+        User *user = [users objectAtIndex:indexPath.row];
+        [cell setCellDetails:user];
     }
-    
-    User *user = [users objectAtIndex:indexPath.row];
-    
-    [cell setCellDetails:user];
     
     // Configure the cell...
     

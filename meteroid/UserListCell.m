@@ -53,7 +53,8 @@
         UIImage *image = [UIImage imageWithData:user.imageData];
         imageUser.image = image;
     } else {
-        UIImage *image = [UIImage imageWithData:[user loadImageData:user.email]];
+        user.imageData = [user loadImageData:user.email];
+        UIImage *image = [UIImage imageWithData:user.imageData];
         imageUser.image = image;
     }    
 }
