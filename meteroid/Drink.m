@@ -2,8 +2,24 @@
 //  Drink.m
 //  meteroid
 //
-//  Created by Gerrit on 29.10.13.
-//  Copyright (c) 2013 Chaos Computer Club Düsseldorf / Chaosdorf e.V. All rights reserved.
+//  Copyright (C) 2013  Gerrit Giehl <r4mp@chaosdorf.de>
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to
+//  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+//  the Software, and to permit persons to whom the Software is furnished to do so,
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+//  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+//  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+//  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+//  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #import "Drink.h"
@@ -20,34 +36,12 @@
 -(NSData *)loadImageData:(NSString *)tmpLogoUrl {
     
     if(tmpLogoUrl == nil) {
-        return UIImagePNGRepresentation([UIImage imageNamed: @"stub.png"]);
+        return UIImagePNGRepresentation([UIImage imageNamed: @"rocket.png"]);
     }
-    
-    NSString *http = @"http://";
-    NSString *https = @"https://";
     
     NSMutableString *msUrl = [[NSMutableString alloc] init];
-    
-    if(self.app.ssl == TRUE) {
-        [msUrl appendString: https];
-    } else {
-        [msUrl appendString: http];
-    }
-    
-    NSString *newHostname = [self.app.hostname copy];
-    
-    if ([self.app.hostname hasPrefix:http]) {
-        newHostname = [self.app.hostname substringFromIndex:[http length]];
-    }
-    
-    if ([self.app.hostname hasPrefix:https]) {
-        newHostname = [self.app.hostname substringFromIndex:[https length]];
-    }
-    
-    Url *url = [[Url alloc] init];
-    [msUrl appendString: [url encodeToPercentEscapeString:newHostname]];
-    [msUrl appendString: @":"];
-    [msUrl appendString: [NSString stringWithFormat:@"%d%@", self.app.port, tmpLogoUrl]];
+    [msUrl appendFormat: @"%@", self.app.getUri];
+    [msUrl appendString: [NSString stringWithFormat:@"%@", tmpLogoUrl]];
 
     return [NSData dataWithContentsOfURL:[NSURL URLWithString: msUrl]];
 

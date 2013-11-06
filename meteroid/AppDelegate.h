@@ -24,6 +24,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Reachability.h"
+#import "Url.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -36,5 +37,7 @@
 @property (assign) BOOL isInternet;
 
 - (BOOL) connectedToNetwork;
+- (BOOL) connectedToNetwork:(NSString *)tmpHostname;
+- (NSString *)getUri;
 
 @end

@@ -32,10 +32,13 @@
 @synthesize singleUserMode;
 @synthesize isInternet;
 
+
 - (BOOL) connectedToNetwork{
-    Reachability* reachability = [Reachability reachabilityWithHostName:@"google.com"];
-    //[self getSettings];
-    //Reachability* reachability = [Reachability reachabilityWithHostName:self.hostname];
+    return [self connectedToNetwork:@"google.com"];
+}
+
+- (BOOL) connectedToNetwork:(NSString *)tmpHostname {
+    Reachability* reachability = [Reachability reachabilityWithHostName:tmpHostname];
     NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
     
     if(remoteHostStatus == NotReachable) {
@@ -46,6 +49,36 @@
         isInternet = TRUE;
     }
     return isInternet;
+}
+
+- (NSString *)getUri {
+    [self getSettings];
+    
+    NSMutableString *msUrl = [[NSMutableString alloc] init];
+    NSString *http = @"http://";
+    NSString *https = @"https://";
+    
+    if(self.ssl == TRUE) {
+        [msUrl appendString: https];
+    } else {
+        [msUrl appendString: http];
+    }
+    
+    NSString *newHostname = [self.hostname copy];
+    
+    if ([self.hostname hasPrefix:http]) {
+        newHostname = [self.hostname substringFromIndex:[http length]];
+    }
+    
+    if ([self.hostname hasPrefix:https]) {
+        newHostname = [self.hostname substringFromIndex:[https length]];
+    }
+    
+    Url *url = [[Url alloc] init];
+    [msUrl appendString: [url encodeToPercentEscapeString:newHostname]];
+    [msUrl appendFormat: @":%d", self.port];
+    
+    return [NSString stringWithString:msUrl];
 }
 
 - (void) getSettings {

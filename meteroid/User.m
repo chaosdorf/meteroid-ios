@@ -41,10 +41,14 @@
 -(NSData *)loadImageData:(NSString *)tmpEmail {
     if((tmpEmail.length != 0) && (self.app.connectedToNetwork == TRUE)) {
         gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:nil/*@selector(setGravatarImage:)*/];
-        NSURL* url = [gravatarLoader loadEmail:tmpEmail withSize:50];
-        return [NSData dataWithContentsOfURL:url];
+        NSURL* url = [gravatarLoader loadEmail:tmpEmail withSize:40];
+        if(url == nil) {
+            return UIImagePNGRepresentation([UIImage imageNamed: @"rocket.png"]);
+        } else {
+            return [NSData dataWithContentsOfURL:url];
+        }
     } else {
-        return UIImagePNGRepresentation([UIImage imageNamed: @"stub.png"]);
+        return UIImagePNGRepresentation([UIImage imageNamed: @"rocket.png"]);
     }
 }
 

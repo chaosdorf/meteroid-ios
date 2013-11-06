@@ -32,6 +32,9 @@
 		EC020D7017676CC900CA9E80 /* UserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC020D6E17676CC900CA9E80 /* UserListCell.xib */; };
 		EC020D7317676D2600CA9E80 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EC020D7217676D2600CA9E80 /* User.m */; };
 		EC020D7C17676F5800CA9E80 /* UserDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC020D7B17676F5800CA9E80 /* UserDetailsController.m */; };
+		EC1076C218210B5E00580D2E /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1076C118210B5E00580D2E /* CustomIOS7AlertView.m */; };
+		EC1076C418210CEE00580D2E /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC1076C318210CEE00580D2E /* UserView.xib */; };
+		EC1076C718226BBC00580D2E /* UserView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1076C618226BBC00580D2E /* UserView.m */; };
 		EC5DD65E1820391700ECE917 /* UserDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC5DD65D1820391700ECE917 /* UserDetailsCell.xib */; };
 		EC5DD6611820394400ECE917 /* UserDetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5DD6601820394400ECE917 /* UserDetailsCell.m */; };
 		EC5DD66418203FC500ECE917 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5DD66318203FC500ECE917 /* Drink.m */; };
@@ -88,6 +91,11 @@
 		EC020D7217676D2600CA9E80 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		EC020D7A17676F5800CA9E80 /* UserDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsController.h; sourceTree = "<group>"; };
 		EC020D7B17676F5800CA9E80 /* UserDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsController.m; sourceTree = "<group>"; };
+		EC1076C018210B5E00580D2E /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomIOS7AlertView.h; path = CustomIOS7AlertView/CustomIOS7AlertView.h; sourceTree = "<group>"; };
+		EC1076C118210B5E00580D2E /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomIOS7AlertView.m; path = CustomIOS7AlertView/CustomIOS7AlertView.m; sourceTree = "<group>"; };
+		EC1076C318210CEE00580D2E /* UserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
+		EC1076C518226BBC00580D2E /* UserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserView.h; sourceTree = "<group>"; };
+		EC1076C618226BBC00580D2E /* UserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserView.m; sourceTree = "<group>"; };
 		EC5DD65D1820391700ECE917 /* UserDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserDetailsCell.xib; sourceTree = "<group>"; };
 		EC5DD65F1820394400ECE917 /* UserDetailsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsCell.h; sourceTree = "<group>"; };
 		EC5DD6601820394400ECE917 /* UserDetailsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsCell.m; sourceTree = "<group>"; };
@@ -194,6 +202,9 @@
 				EC5DD65D1820391700ECE917 /* UserDetailsCell.xib */,
 				EC5DD66218203FC500ECE917 /* Drink.h */,
 				EC5DD66318203FC500ECE917 /* Drink.m */,
+				EC1076C518226BBC00580D2E /* UserView.h */,
+				EC1076C618226BBC00580D2E /* UserView.m */,
+				EC1076C318210CEE00580D2E /* UserView.xib */,
 				EC020D23176766C300CA9E80 /* Images.xcassets */,
 				EC020D0F176766C300CA9E80 /* Supporting Files */,
 			);
@@ -232,6 +243,7 @@
 		EC020D4F17676B9F00CA9E80 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				EC1076BF18210B2600580D2E /* CustomIOS7AlertView */,
 				ECDB7B15182014F30014AE8A /* Reachability */,
 				ECDB7B0F181FEBA10014AE8A /* Json */,
 				ECDB7B0B181FEB1E0014AE8A /* Url */,
@@ -257,6 +269,15 @@
 				EC020D5617676BCC00CA9E80 /* GravatarLoader.m */,
 			);
 			path = GravatarLoader;
+			sourceTree = "<group>";
+		};
+		EC1076BF18210B2600580D2E /* CustomIOS7AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				EC1076C018210B5E00580D2E /* CustomIOS7AlertView.h */,
+				EC1076C118210B5E00580D2E /* CustomIOS7AlertView.m */,
+			);
+			name = CustomIOS7AlertView;
 			sourceTree = "<group>";
 		};
 		ECDB7B0B181FEB1E0014AE8A /* Url */ = {
@@ -333,6 +354,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Chaos Computer Club Düsseldorf / Chaosdorf e.V.";
 				TargetAttributes = {
+					EC020D04176766C300CA9E80 = {
+						DevelopmentTeam = N28GY7Q7X4;
+					};
 					EC020D28176766C300CA9E80 = {
 						TestTargetID = EC020D04176766C300CA9E80;
 					};
@@ -363,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC5DD65E1820391700ECE917 /* UserDetailsCell.xib in Resources */,
+				EC1076C418210CEE00580D2E /* UserView.xib in Resources */,
 				EC020D7017676CC900CA9E80 /* UserListCell.xib in Resources */,
 				EC020D1F176766C300CA9E80 /* Main_iPad.storyboard in Resources */,
 				EC020D24176766C300CA9E80 /* Images.xcassets in Resources */,
@@ -399,6 +424,8 @@
 				ECDB7B0E181FEB4E0014AE8A /* Url.m in Sources */,
 				EC020D7C17676F5800CA9E80 /* UserDetailsController.m in Sources */,
 				EC5DD66418203FC500ECE917 /* Drink.m in Sources */,
+				EC1076C218210B5E00580D2E /* CustomIOS7AlertView.m in Sources */,
+				EC1076C718226BBC00580D2E /* UserView.m in Sources */,
 				EC020D15176766C300CA9E80 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,6 +559,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "meteroid/meteroid-Prefix.pch";
 				INFOPLIST_FILE = "meteroid/meteroid-Info.plist";
@@ -547,6 +575,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "meteroid/meteroid-Prefix.pch";
 				INFOPLIST_FILE = "meteroid/meteroid-Info.plist";

@@ -28,9 +28,16 @@
                         </prototypes>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Overview" id="P36-oc-1MX"/>
+                    <navigationItem key="navigationItem" title="Overview" id="P36-oc-1MX">
+                        <barButtonItem key="rightBarButtonItem" title="create user" id="4R2-i0-Vty">
+                            <connections>
+                                <action selector="createUser:" destination="s7r-a4-vaP" id="ldK-VU-xef"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="createUser" destination="4R2-i0-Vty" id="Tmp-PS-St7"/>
                         <outlet property="userList" destination="gHy-Se-D3p" id="jtx-lQ-M2F"/>
                     </connections>
                 </tableViewController>
@@ -68,7 +75,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufg-hn-gqI">
-                                <rect key="frame" x="68" y="98" width="143" height="30"/>
+                                <rect key="frame" x="65" y="98" width="143" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="set as default user">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -135,10 +142,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Details" id="k4r-wn-Qor"/>
+                    <navigationItem key="navigationItem" title="Details" id="k4r-wn-Qor">
+                        <barButtonItem key="rightBarButtonItem" title="edit user" id="Hs1-iG-8TH">
+                            <connections>
+                                <action selector="editUser:" destination="7Q9-7X-R86" id="ftL-k0-LGj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="btDefaultUser" destination="Ufg-hn-gqI" id="4zt-0A-rZx"/>
                         <outlet property="drinkList" destination="e2N-O2-8qo" id="L7r-95-Sqq"/>
+                        <outlet property="editUser" destination="Hs1-iG-8TH" id="Iy3-hg-jWw"/>
                         <outlet property="imageUser" destination="YD5-Zl-kty" id="YNJ-2M-QVe"/>
                         <outlet property="lbCurrentBalance" destination="AQ9-Gh-nLS" id="niJ-0F-GhQ"/>
                         <outlet property="lbUsername" destination="Hz0-Nc-RNn" id="n7S-uQ-2yH"/>

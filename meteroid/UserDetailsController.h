@@ -28,6 +28,7 @@
 #import "Json.h"
 #import "UserDetailsCell.h"
 #import "Drink.h"
+#import "CustomIOS7AlertView.h"
 
 @interface UserDetailsController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     NSMutableData *responseData;
@@ -47,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *plusTen;
 @property (weak, nonatomic) IBOutlet UIButton *plusTwenty;
 @property (weak, nonatomic) IBOutlet UIButton *plusFifty;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editUser;
 
 - (AppDelegate*) app;
 
@@ -56,6 +58,8 @@
 - (IBAction)plusTen:(id)sender;
 - (IBAction)plusTwenty:(id)sender;
 - (IBAction)plusFifty:(id)sender;
+- (IBAction)editUser:(id)sender;
+
 
 
 @end

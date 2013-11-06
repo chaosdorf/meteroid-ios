@@ -26,13 +26,17 @@
 #import "UserListCell.h"
 #import "UserDetailsController.h"
 #import "User.h"
+#import "CustomIOS7AlertView.h"
 
-@interface UserListController : UITableViewController <UINavigationControllerDelegate> { // Fehlt hier ein Connection-Delegate?
+@interface UserListController : UITableViewController <UINavigationControllerDelegate, CustomIOS7AlertViewDelegate> { // Fehlt hier ein Connection-Delegate?
     NSMutableData *responseData;
 }
 
 @property (nonatomic, retain) NSMutableArray *users;
 @property (strong, nonatomic) IBOutlet UITableView *userList;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *createUser;
+
+- (IBAction)createUser:(id)sender;
 
 - (AppDelegate*) app;
 

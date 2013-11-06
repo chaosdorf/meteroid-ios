@@ -32,6 +32,32 @@
 
 @synthesize users;
 @synthesize userList;
+@synthesize createUser;
+
+- (IBAction)createUser:(id)sender {
+    
+    CustomIOS7AlertView *createUserDialog = [[CustomIOS7AlertView alloc] init];
+    [createUserDialog setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel", @"Create", nil, nil]];
+    [createUserDialog setUseMotionEffects:TRUE];
+    UIView *createUserView = [[[NSBundle mainBundle] loadNibNamed:@"UserView" owner:self options:nil] lastObject];
+    [createUserDialog setContainerView:createUserView];
+    [createUserDialog show];
+    
+    [self loadUsers];
+    [self.tableView reloadData];
+    
+//    // TODO
+//    UIStoryboard*  sb = [UIStoryboard storyboardWithName:@"Main_iPhone"
+//                                                  bundle:nil];
+//    UserDetailsController *userDetails = [sb instantiateViewControllerWithIdentifier:@"UserDetails"];
+//    User *user = [[User alloc] init];
+//    userDetails.user = [user getUserData:newUser];
+}
+
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+{
+    NSLog(@"Button at position %d is clicked on alertView %d.", buttonIndex, [alertView tag]);
+}
 
 -(AppDelegate*) app
 {
@@ -63,6 +89,13 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    if(![self.app connectedToNetwork:self.app.hostname]) {
+        [self.view makeToast:@"No connection to host!"
+                    duration:1.0
+                    position:@"center"];
+        return;
+    }
+    
     [self loadUsers];
     [self.tableView reloadData];
 }
@@ -81,6 +114,13 @@
     self.users = [[NSMutableArray alloc] init];
     [userList setDelegate:self];
     [userList setDataSource:self];
+    
+    if(![self.app connectedToNetwork:self.app.hostname]) {
+        [self.view makeToast:@"No connection to host!"
+                    duration:1.0
+                    position:@"center"];
+        return;
+    }
     
     [self loadUsers];
     
@@ -211,8 +251,8 @@
     users = [[NSMutableArray alloc] init];
     
     // DEBUG
-    NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", responseString);
+    //NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@", responseString);
     
     NSArray* arrResult = [[NSJSONSerialization JSONObjectWithData: responseData options:kNilOptions error:&error] mutableCopy];
     
@@ -239,20 +279,8 @@
     [self.view addSubview:av];
     [av startAnimating];
     
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *hostname = [standardUserDefaults stringForKey:@"hostname_preference"];
-    BOOL useSsl = [standardUserDefaults boolForKey:@"use_ssl_preference"];
-    int port = [standardUserDefaults integerForKey:@"port_preference"];
-    
     NSMutableString *msUrl = [[NSMutableString alloc] init];
-    
-    if(useSsl == TRUE) {
-        [msUrl appendString: @"https://"];
-    } else {
-        [msUrl appendString: @"http://"];
-    }
-    [msUrl appendFormat: @"%@", hostname];
-    [msUrl appendFormat: @":%d", port];
+    [msUrl appendFormat: @"%@", self.app.getUri];
     [msUrl appendString: @"/users.json"];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:msUrl]];  //asynchronous call

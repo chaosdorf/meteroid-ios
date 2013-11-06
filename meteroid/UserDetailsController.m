@@ -57,6 +57,27 @@
     return self;
 }
 
+- (void)reloadTableView:(id)sender;
+{
+    [self loadDrinks];
+    [self.drinkList reloadData];
+}
+
+-(void)refreshView:(UIRefreshControl *)refresh {
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
+    
+    // custom refresh logic would be placed here...
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm a"];
+    NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@",[formatter stringFromDate:[NSDate date]]];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
+    
+    [self reloadTableView:nil];
+    
+    [refresh endRefreshing];
+}
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
     btDefaultUser.hidden = FALSE;
@@ -84,6 +105,14 @@
     [drinkList setDelegate:self];
     [drinkList setDataSource:self];
     [self loadDrinks];
+
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [refresh addTarget:self
+                action:@selector(refreshView:)
+      forControlEvents:UIControlEventValueChanged];
+
+    [self.drinkList addSubview:refresh];
     
     btDefaultUser.hidden = FALSE;
     lbUsername.text = user.name;
@@ -170,6 +199,19 @@
     [self.view setUserInteractionEnabled:YES];
 }
 
+- (IBAction)editUser:(id)sender {
+    
+    CustomIOS7AlertView *editUserDialog = [[CustomIOS7AlertView alloc] init];
+    [editUserDialog setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel", @"Edit", nil, nil]];
+    [editUserDialog setUseMotionEffects:TRUE];
+    UIView *editUserView = [[[NSBundle mainBundle] loadNibNamed:@"UserView" owner:self options:nil] lastObject];
+    [editUserDialog setContainerView:editUserView];
+    [editUserDialog show];
+    
+    //[self loadUsers];
+    //[self.tableView reloadData];
+}
+
 - (IBAction)setDefaultUser:(id)sender {
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     [standardUserDefaults setObject:user.uid forKey:@"defaultUser"];
@@ -235,6 +277,7 @@
     [self setBalance:-drink.price];
     user = [user getUserData:user.uid];
     lbCurrentBalance.text = [NSString stringWithFormat:@"%.2lf€",user.balance];
+    [self.drinkList deselectRowAtIndexPath:indexPath animated:YES];
     [self.view setUserInteractionEnabled:YES];
 }
 
@@ -268,19 +311,22 @@
     drinks = [[NSMutableArray alloc] init];
     
     // DEBUG
-    NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", responseString);
+    //NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@", responseString);
     
     NSArray* arrResult = [[NSJSONSerialization JSONObjectWithData: responseData options:kNilOptions error:&error] mutableCopy];
     
     for(NSDictionary *dic in arrResult) {
+        
+        // TODO: catch missing 'keys'
+        
         Drink *drink = [[Drink alloc] init];
         drink.name = [dic objectForKey:@"name"];
         drink.bottleSize = [dic objectForKey:@"bottle_size"];;
         drink.caffeine = [dic objectForKey:@"caffeine"];
-        drink.logoUrl = [dic objectForKey:@"logo_url"];
+        drink.logoUrl = [dic objectForKey:@"logoUrl"];
         drink.createdAt = [dic objectForKey:@"created_at"];
-        drink.price = [[dic objectForKey:@"donation_recommendation"] doubleValue];
+        drink.price = [[dic objectForKey:@"price"] doubleValue];
         
         [self.drinks addObject:drink];
     }
@@ -292,20 +338,8 @@
 {
     responseData = [[NSMutableData alloc] init];
     
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *hostname = [standardUserDefaults stringForKey:@"hostname_preference"];
-    BOOL useSsl = [standardUserDefaults boolForKey:@"use_ssl_preference"];
-    int port = [standardUserDefaults integerForKey:@"port_preference"];
-    
     NSMutableString *msUrl = [[NSMutableString alloc] init];
-    
-    if(useSsl == TRUE) {
-        [msUrl appendString: @"https://"];
-    } else {
-        [msUrl appendString: @"http://"];
-    }
-    [msUrl appendFormat: @"%@", hostname];
-    [msUrl appendFormat: @":%d", port];
+    [msUrl appendFormat: @"%@", self.app.getUri];
     [msUrl appendString: @"/drinks.json"];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:msUrl]];  //asynchronous call
