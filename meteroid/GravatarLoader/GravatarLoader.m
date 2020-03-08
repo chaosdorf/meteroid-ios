@@ -38,7 +38,7 @@ NSString *md5(NSString *str) {
 - (void)requestWithArgs:(NSArray *)theArgs {
 	NSString *email = [[theArgs objectAtIndex:0] lowercaseString];
 	NSInteger size = [[theArgs objectAtIndex:1] integerValue];
-	NSString *url = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d", md5(email), size];
+	NSString *url = [NSString stringWithFormat:@"https://www.gravatar.com/avatar/%@?s=%d", md5(email), size];
 	
     urlImage = [NSURL URLWithString:url];
 }

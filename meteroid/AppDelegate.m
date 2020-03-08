@@ -94,9 +94,9 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *appDefaults = [[NSMutableDictionary alloc] init];
     
-    [appDefaults setValue:@"mete" forKey:@"hostname_preference"];
-    [appDefaults setValue:[NSNumber numberWithInt:80] forKey:@"port_preference"];
-    [appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"use_ssl_preference"];
+    [appDefaults setValue:@"mete.chaosdorf.space" forKey:@"hostname_preference"];
+    [appDefaults setValue:[NSNumber numberWithInt:443] forKey:@"port_preference"];
+    [appDefaults setValue:[NSNumber numberWithBool:YES] forKey:@"use_ssl_preference"];
     [appDefaults setValue:[NSNumber numberWithBool:YES] forKey:@"use_single_user_mode_preference"];
     
     [defaults registerDefaults:appDefaults];
